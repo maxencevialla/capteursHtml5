@@ -2,6 +2,8 @@ var ctx;
 var moveX, moveY;
 var xCircle = 200;
 var yCircle = 200;
+var init = false;
+var xInit, yInit;
 
 window.onload = function()  {
     canvas = document.getElementById("mainCanvas");
@@ -31,23 +33,15 @@ function drawCircle(x, y) {
 
 window.addEventListener('deviceorientation', function(event) {
 
-    if(moveX > event.gamma) {
-        xCircle -= 10;
-    } else if(moveX < event.gamma) {
-        xCircle += 10;
+    if(!init) {
+        xInit = event.gamma;
+        yInit = event.beta;
+
+        init = true;
     }
 
-    if(moveY > event.beta) {
-        yCircle += 10;
-    } else if(moveY < event.beta) {
-        yCircle -= 10;
-    }
-
-    moveX = event.gamma;
-    moveY = event.beta;
-
-    xCircle = regularizeX(xCircle);
-    yCircle = regularizeY(yCircle);
+    xCircle = regularizeX(xCircle+event.gamma);
+    yCircle = regularizeY(yCircle+event.beta);
 
     drawCircle(xCircle, yCircle)
 
