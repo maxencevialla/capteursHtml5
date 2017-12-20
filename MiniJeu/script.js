@@ -1,8 +1,6 @@
 var ctx;
 var xCircle = 200;
 var yCircle = 200;
-var init = false;
-var xInit, yInit;
 var rayon = 40;
 
 window.onload = function()  {
@@ -32,13 +30,6 @@ function drawCircle(x, y) {
 }
 
 window.addEventListener('deviceorientation', function(event) {
-
-    if(!init) {
-        xInit = event.gamma;
-        yInit = event.beta;
-
-        init = true;
-    }
 
     xCircle = regularizeX(xCircle+event.gamma);
     yCircle = regularizeY(yCircle+event.beta);
