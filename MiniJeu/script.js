@@ -1,14 +1,14 @@
 var ctx;
-var moveX, moveY;
 var xCircle = 200;
 var yCircle = 200;
 var init = false;
 var xInit, yInit;
+var rayon = 40;
 
 window.onload = function()  {
     canvas = document.getElementById("mainCanvas");
-    canvas.width = window.innerWidth //document.width is obsolete
-    canvas.height = window.innerHeight; //document.height is obsolete
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
     canvasW = canvas.width;
     canvasH = canvas.height;
 
@@ -19,13 +19,13 @@ window.onload = function()  {
 
         drawCircle(xCircle, yCircle);
     }
-}
+};
 
 function drawCircle(x, y) {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
-    ctx.arc(x, y,40,0,2*Math.PI);
+    ctx.arc(x, y,rayon,0,2*Math.PI);
     ctx.fillStyle = 'green';
     ctx.fill();
     ctx.stroke();
@@ -48,12 +48,12 @@ window.addEventListener('deviceorientation', function(event) {
 });
 
 function regularizeX(x) {
-    if(x > canvas.width) {
-        x = canvas.width;
+    if(x > canvas.width-rayon) {
+        x = canvas.width-rayon;
         miniVibre();
     }
-    if(x < 0) {
-        x = 0;
+    if(x < rayon) {
+        x = rayon;
         miniVibre();
     }
 
@@ -61,12 +61,12 @@ function regularizeX(x) {
 }
 
 function regularizeY(y) {
-    if(y < 0) {
-        y = 0;
+    if(y < rayon) {
+        y = rayon;
         miniVibre();
     }
-    if(y > canvas.height) {
-        y = canvas.height;
+    if(y > canvas.height-rayon) {
+        y = canvas.height-rayon;
         miniVibre();
     }
 
